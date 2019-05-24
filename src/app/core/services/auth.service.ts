@@ -22,7 +22,7 @@ export class AuthService {
     return this.authState$.pipe(map(user => user !== null));
   }
 
-  authentication({ isSignIn, provider, user }: AuthOptions) {
+  authenticate({ isSignIn, provider, user }: AuthOptions) {
     let operation: Promise<auth.UserCredential>;
 
     if (provider !== AuthProvider.Email) {

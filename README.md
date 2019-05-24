@@ -1,3 +1,3 @@
 #Ionic Firestore Tasks
 
-É um projeto em inic 4 com Firebase
+É um projeto em ionic 4 com Firebase

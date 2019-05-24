@@ -102,7 +102,7 @@
                 expand="block"
                 [disabled]="form.invalid"
                 type="submit"
-                (click)="onSubmit()"
+                (click)="onSubmit(authProviders.Email)"
             >
                 {{configs.action}}
             </ion-button>
@@ -115,7 +115,7 @@
             </ion-button>
             <ion-button
                 expand="block"
-                (click)="onFacebook()"
+                (click)="onSubmit(authProviders.Facebook)"
             >
                 <ion-icon
                     slot="icon-only"
