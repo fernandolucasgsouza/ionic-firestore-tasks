@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
-import { LoginPage } from './login.page';
+import { TasksListPage } from './tasks-list.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPage
+    component: TasksListPage
   }
 ];
 
@@ -17,6 +17,6 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LoginPage]
+  declarations: [TasksListPage]
 })
-export class LoginPageModule {}
+export class TasksListPageModule { }

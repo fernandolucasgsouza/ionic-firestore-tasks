@@ -9,7 +9,10 @@ import { tap, take } from 'rxjs/operators';
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
-  constructor(private _authService: AuthService, private _router: Router) {
+  constructor(
+    private _authService: AuthService,
+    private _router: Router
+  ) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -23,7 +26,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
     const url = segments.map(s => `/${s}`).join('');
-    
+
     /** take = 1 é para ouvir o valor apenas 1 vez e completar p serviço*/
     return this._chechAthState(url).pipe(take(1));
   }

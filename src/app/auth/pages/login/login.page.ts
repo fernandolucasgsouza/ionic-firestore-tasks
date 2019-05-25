@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AuthProvider } from 'src/app/core/services/auth.types';
@@ -24,7 +26,9 @@ export class LoginPage implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private _overlayService: OverlayService
+    private _overlayService: OverlayService,
+    private _navCtrl: NavController,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -72,13 +76,11 @@ export class LoginPage implements OnInit {
         user: this.form.value,
         provider
       });
-      console.log('Authenticated', credential);
-      console.log('redirecting ...');
 
+      this._navCtrl.navigateForward(this._route.snapshot.queryParamMap.get('redirect') || '/tasks');
     } catch (e) {
-      console.log(e);
-      this._overlayService.toast({ message: e.message }, typeMsg.error)
-
+      this._overlayService
+        .toast({ message: `Ocorreu um erro: ${e.message}` }, typeMsg.error)
     } finally {
       loading.dismiss();
     }
