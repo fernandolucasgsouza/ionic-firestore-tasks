@@ -34,21 +34,21 @@ export class OverlayService {
     return loading;
   }
 
-  async toast(options?: ToastOptions, type_message?: typeMsg): Promise<HTMLIonToastElement> {
+  async toast(type_msg: 'success' | 'error' | 'warning', options?: ToastOptions, ): Promise<HTMLIonToastElement> {
 
     const toast = await this._toastCtrl.create({
       position: 'bottom',
       duration: 5000,
       showCloseButton: true,
       closeButtonText: 'ok',
-      color: this._setColorMessage(type_message),
+      color: this._setColorMessage(type_msg),
       ...options
     });
     await toast.present();
     return toast;
   }
 
-  private _setColorMessage(type_message: typeMsg) {
+  private _setColorMessage(type_message: string, ) {
     let set_color: string;
 
     switch (type_message) {

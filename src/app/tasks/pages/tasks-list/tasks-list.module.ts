@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
 import { TasksListPage } from './tasks-list.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { TaskComponentsModule } from '../../components/task-components.module';
 
 const routes: Routes = [
   {
@@ -15,6 +15,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     SharedModule,
+    TaskComponentsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [TasksListPage]

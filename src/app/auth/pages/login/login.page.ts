@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
-import { AuthService } from 'src/app/core/services/auth.service';
-import { AuthProvider } from 'src/app/core/services/auth.types';
-import { OverlayService, typeMsg } from 'src/app/core/services/overlay.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { AuthProvider } from 'src/app/core/services/auth/auth.types';
+import { OverlayService } from 'src/app/core/services/overlay/overlay.service';
 
 @Component({
   selector: 'app-login',
@@ -80,12 +80,10 @@ export class LoginPage implements OnInit {
       this._navCtrl.navigateForward(this._route.snapshot.queryParamMap.get('redirect') || '/tasks');
     } catch (e) {
       this._overlayService
-        .toast({ message: `Ocorreu um erro: ${e.message}` }, typeMsg.error)
+        .toast('error', { message: `Ocorreu um erro: ${e.message}` })
     } finally {
       loading.dismiss();
     }
-
-
   }
 
 }
