@@ -34,7 +34,7 @@ export abstract class Firestore<T extends { id: string }> {
     return this.setItem(item, 'set');
   }
 
-  upadate(item: T): Promise<T> {
+  update(item: T): Promise<T> {
     return this.setItem(item, 'update');
   }
 

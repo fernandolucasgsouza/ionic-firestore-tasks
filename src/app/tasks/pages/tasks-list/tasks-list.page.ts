@@ -1,7 +1,12 @@
+import { Observable } from 'rxjs';
+import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../../services/tasks.service';
-import { Observable, of } from 'rxjs';
+
 import { Task } from '../../models/task.model';
+import { TasksService } from '../../services/tasks.service';
+import { OverlayService } from 'src/app/core/services/overlay/overlay.service';
+import { async } from '@angular/core/testing';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tasks-list',
@@ -11,21 +16,46 @@ import { Task } from '../../models/task.model';
 export class TasksListPage implements OnInit {
   tasks$: Observable<Task[]>;
 
-  constructor(private _tasksService: TasksService) { }
+  constructor(
+    private _tasksService: TasksService,
+    private _overlayService: OverlayService,
+    private _navCtrl: NavController
+  ) { }
 
-  ngOnInit() {
-  //   this.tasks$ = of([
-  //     {
-  //     id:'123',
-  //     title:'Ionic',
-  //     done:false
-  //   },{
-  //       id: '124',
-  //       title: 'Angular',
-  //       done:true
-  //   }
-  // ])
+  async ngOnInit(): Promise<void> {
+    const loading = await this._overlayService.loading();
     this.tasks$ = this._tasksService.getAll();
+    this.tasks$.pipe(take(1)).subscribe(task => loading.dismiss());
   }
 
+  onUpdate(task: Task): void {
+    this._navCtrl.navigateForward(['tasks', 'edit', task.id]);
+  }
+
+  async onDelete(task: Task): Promise<void> {
+    await this._overlayService.alert({
+      message: `Você deseja realmente excluir a tarefa "${task.title}"`,
+      buttons: [
+        {
+          text: 'Sim',
+          handler: async () => {
+            await this._tasksService.delete(task);
+            await this._overlayService.toast('success', {
+              message: `Tarefa "${task.title}" excluida!`,
+            })
+          }
+        },
+        'Não'
+      ]
+    })
+  }
+
+  async onDone(task: Task): Promise<void> {
+    const tasUpdateDone = { ...task, done: !task.done };
+
+    await this._tasksService.update(tasUpdateDone);
+    await this._overlayService.toast(null, {
+      message: `Tarefa "${task.title}" ${tasUpdateDone.done ? 'Completada' : 'Atualizada'}!`,
+    })
+  }
 }
