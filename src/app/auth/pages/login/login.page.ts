@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, MenuController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -28,10 +28,11 @@ export class LoginPage implements OnInit {
     private _authService: AuthService,
     private _overlayService: OverlayService,
     private _navCtrl: NavController,
+    private _menuCtrl: MenuController,
     private _route: ActivatedRoute
   ) { }
 
-  ngOnInit() {
+   ngOnInit() {
     this._createForm();
   }
 

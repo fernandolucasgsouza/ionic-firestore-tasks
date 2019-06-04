@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-menu-toogle',
   template: `
   <ion-buttons>
-    <ion-menu-toggle [menu]="menu">
+    <ion-menu-toggle [menu]="menuId">
       <ion-button >
         <ion-icon slot="icon-only" name="menu" ></ion-icon>
       </ion-button >
@@ -14,5 +14,5 @@ import { Component, Input } from '@angular/core';
 })
 export class MenuToogleComponent {
 
-  @Input() menu: string;
+  @Input() menuId : string;
 }
